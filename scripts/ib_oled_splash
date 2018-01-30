@@ -1,0 +1,48 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ib_oled_splash
+# Required-Start:    
+# Required-Stop:    
+# Default-Start:     2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: oled splash
+# Description: ib_oled_splash
+### END INIT INFO
+
+DAEMON_NAME=ib_oled_splash
+DIR="/root/titanamp"
+
+do_start () {
+    echo "Starting TITAN OLED display"
+    cd $DIR
+    $DIR/env/bin/python $DIR/oled/oled_splash.py
+}
+do_stop () {
+    echo "Stop TITAN OLED display"
+    cd $DIR
+    $DIR/env/bin/python $DIR/oled/oled_clear.py
+}
+do_status () {
+    echo "STATUS"
+}
+case $1 in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|reload|force-reload)
+        do_stop
+        do_start
+        do_status
+        ;;
+    status)
+        do_status
+        ;;
+    *)
+        echo "Usage: /etc/init.d/$DAEMON_NAME {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+

@@ -1,0 +1,10 @@
+Adafruit-GPIO==1.0.3
+Adafruit-PureIO==0.2.1
+Adafruit-SSD1306==1.6.1
+gitdb2==2.0.3
+GitPython==2.1.8
+Pillow==5.0.0
+RPi.GPIO==0.6.3
+simplejson==3.13.2
+smmap2==2.0.3
+spidev==3.2

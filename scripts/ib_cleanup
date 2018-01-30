@@ -1,0 +1,44 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ib_cleanup
+# Required-Start:    
+# Required-Stop:    
+# Default-Start:     2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: IB cleanup
+# Description: ib_cleanup
+### END INIT INFO
+
+DAEMON_NAME=ib_cleanup
+
+do_start () {
+    find /var/log/. -type f
+}
+do_stop () {
+    echo "==IB CLEANING UP=="
+    find /var/log/. -type f -delete
+}
+do_status () {
+    find /var/log/. -type f
+}
+case $1 in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|reload|force-reload)
+        do_stop
+        do_start
+        do_status
+        ;;
+    status)
+        do_status
+        ;;
+    *)
+        echo "Usage: /etc/init.d/$DAEMON_NAME {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+

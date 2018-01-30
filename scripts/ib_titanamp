@@ -1,0 +1,49 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ib_titanamp
+# Required-Start:    $local_fs $syslog $remote_fs dbus
+# Required-Stop:     $local_fs $syslog $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start titan amplifier
+# Description: ib_titanamp
+### END INIT INFO
+
+DAEMON_NAME=ib_titanamp
+DIR="/root/titanamp"
+
+do_start () {
+    echo "Starting TITAN AMPLIFIER"
+    cd $DIR
+    $DIR/env/bin/python $DIR/run.py &
+}
+do_stop () {
+    echo "Stop TITAN AMPLIFIER"
+    ps auxww | grep 'titanamp' | awk '{print $2}' | xargs kill -9
+    $DIR/env/bin/python $DIR/oled_clear.py
+}
+do_status () {
+    echo "STATUS"
+    ps auxww | grep 'titanamp'
+}
+case $1 in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|reload|force-reload)
+        do_stop
+        do_start
+        do_status
+        ;;
+    status)
+        do_status
+        ;;
+    *)
+        echo "Usage: /etc/init.d/$DAEMON_NAME {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+

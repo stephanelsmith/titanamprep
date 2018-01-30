@@ -1,0 +1,6 @@
+
+
+pip install https://github.com/adafruit/Adafruit_Python_SSD1306/zipball/master
+pip install Pillow --global-option="build_ext" --global-option="--disable-jpeg"
+pip install RPi.GPIO
+
